@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Create playlist";
+}
+
+<div class="home-container">
+    <div class="home-title-container">
+        <p class="home-title">Create Playlist</p>
+        <a asp-area="" asp-controller="Home" asp-action="Index"><button class="home-add-playlist-button">Cancel</button></a>
+        
+    </div>
+    <div class="home-playlist-list-container add-playlist-input-container">
+        @using (Html.BeginForm("AddPlaylist", "Playlist", FormMethod.Post))
+        {
+            <label for="myTextbox">Playlist name: </label>
+            @Html.TextBox("playlistName", "", new { @class = "form-control", @placeholder = "Enter your playlist name here" })
+
+            <button type="submit" class="create-playlist-submit-button">Submit</button>
+        }
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="text-danger">@ViewBag.ErrorMessage</div>
+        }
+    </div>
+</div>

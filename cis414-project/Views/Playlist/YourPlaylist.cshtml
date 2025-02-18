@@ -1,0 +1,63 @@
+﻿@using cis414_project.Models.Playlist
+@model Playlist
+@{
+    ViewData["Title"] = "Playlist";
+}
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/yourPlaylist.js"></script>
+}
+
+<div class="home-container">
+    <div class="playlist-title-container">
+        <div>
+            <p class="home-title">@Model.PlaylistName</p>
+            <p class="playlist-created-date">Created @Model.CreatedDate.ToString("MM/dd/yyyy")</p>
+        </div>
+        <div id="playlistForm">
+            <label for="newPlaylistName">New Playlist Name:</label>
+            <input type="text" id="newPlaylistName" />
+            <button type="button" class="updatePlaylistNameButton">Update Playlist Name</button>
+        </div>
+    </div>
+    <div class="playlist-container" data-playlist-id="@Model.PlaylistId">
+        <div class="playlist-left-container">
+            <div class="playlist-left-container-title-container">
+                <p class="add-songs-title">Add Songs</p>
+            </div>
+            <div class="playlist-list-container">
+                @foreach (var song in Model.AvailableSongs)
+                {
+                    <div class="playlist-song-item">
+                        <div class="playlist-song-item-info-container">
+                            <p class="playlist-song-name">@song.SongName: @song.Artist</p> <!-- Display song name and artist -->
+                            <p class="playlist-album-name">@song.Artist</p> <!-- Display album name -->
+                        </div>
+                        <div class="playlist-song-item-add-container">
+                            <p class="playlist-song-add-button" data-song-id="@song.SongId">+</p> <!-- Add button -->
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="playlist-right-container">
+            <div class="playlist-right-title-container">
+                <p class="playlist-remove-songs-title">Remove songs</p>
+            </div>
+            <div class="playlist-list-container">
+                @foreach (var song in Model.SelectedSongs)
+                {
+                    <div class="playlist-song-item">
+                        <div class="playlist-song-item-info-container">
+                            <p class="playlist-song-name">@song.SongName: @song.Artist</p> <!-- Display song name and artist -->
+                            <p class="playlist-album-name">@song.Artist</p> <!-- Display album name -->
+                        </div>
+                        <div class="playlist-song-item-add-container">
+                            <p class="playlist-song-remove-button" data-song-id="@song.SongId">-</p> <!-- Remove button -->
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

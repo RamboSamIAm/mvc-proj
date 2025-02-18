@@ -1,0 +1,41 @@
+﻿@using cis414_project.Models.Playlist
+@{
+    ViewData["Title"] = "Your playlists";
+    var playlists = ViewBag.Playlists as IEnumerable<PlaylistInList>;
+}
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/index.js"></script>
+}
+
+<div class="home-container">
+    <div class="home-title-container">
+        <p class="home-title">Your Playlists</p>
+        <a asp-area="" asp-controller="Playlist" asp-action="AddPlaylist"><button class="home-add-playlist-button">+ Playlist</button></a>
+    </div>
+    <div class="home-playlist-list-container">
+        @if (playlists != null && playlists.Any())
+        {
+            foreach (var playlist in playlists)
+            {
+                <div class="home-playlist-item">
+                    <a asp-area="" asp-controller="Playlist" asp-action="YourPlaylist" asp-route-playlistId="@playlist.PlaylistId">
+                        <div class="home-playlist-item-info-container">
+                            <p class="home-playlist-item-title">@playlist.PlaylistName</p>  
+                            <p class="home-playlist-item-created-date">Created @playlist.CreatedDate.ToString("MM/dd/yyyy")</p> 
+                        </div>
+                    </a>
+                    <div class="home-playlist-item-x-container">
+                        <p class="home-playlist-item-x" data-playlist-id="@playlist.PlaylistId">X</p>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>No playlists found.</p>
+        }
+    </div>
+</div>
+
+<script src="~/js/index.js"></script>
